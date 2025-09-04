@@ -31,12 +31,12 @@ def obtener_precio_usdt_ves():
             "Origin": "https://p2p.binance.com"
         }
 
-        respuesta = requests.post(url, headers=headers, data=json.dumps(payload))
+        respuesta = requests.post(url, headers=headers, json=payload)
         
         if respuesta.status_code == 200:
             datos = respuesta.json()
             if datos['data'] and len(datos['data']) > 0:
-                primer_anuncio = datos['data'][1]
+                primer_anuncio = datos['data'][0]  # Cambiado de [1] a [0]
                 precio = primer_anuncio['adv']['price']
                 comerciante = primer_anuncio['advertiser']['nickName']
                 disponible = primer_anuncio['adv']['surplusAmount']
